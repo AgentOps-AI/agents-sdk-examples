@@ -1,6 +1,6 @@
 # Agents SDK Examples
 
-A curated collection of example projects built using the Agents SDK from AgentOpsAI. This repository demonstrates various ways to create and implement AI agents for different use cases and applications.
+A curated collection of example projects built using the [Agents SDK by OpenAI](https://openai.github.io/openai-agents-python/tracing/) and AgentOpsAI. This repository demonstrates various ways to create and implement AI agents for different use cases and applications.
 
 ## 🌟 About AgentOpsAI
 
@@ -18,7 +18,7 @@ This repository contains multiple example projects showcasing how to build diffe
 ### Example Projects
 
 Each project in this repository:
-- Is built using the AgentOpsAI Agents SDK
+- Is built using the Agents SDK and AgentOpsAI
 - Contains its own documentation and setup instructions
 - Demonstrates specific agent capabilities
 - Includes complete source code and implementation details
@@ -26,7 +26,7 @@ Each project in this repository:
 ## 🎯 Purpose
 
 The main goals of this repository are to:
-- Provide practical examples of building agents with the AgentOpsAI Agents SDK
+- Provide practical examples of building agents with Agents SDK and AgentOpsAI
 - Demonstrate best practices for agent implementation
 - Help developers understand different use cases for AI agents
 - Serve as a learning resource for getting started with AgentOpsAI
@@ -45,15 +45,6 @@ To explore any example:
 1. Navigate to the specific project directory
 2. Follow the project's README for setup and running instructions
 3. Experiment with the code and customize it for your needs
-
-## 📚 Documentation
-
-Each project contains its own documentation explaining:
-- The purpose of the agent
-- How it works
-- Setup instructions
-- Usage examples
-- Customization options
 
 ## 🤝 Contributing
 
