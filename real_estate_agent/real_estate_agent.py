@@ -8,11 +8,13 @@ from dotenv import load_dotenv
 import agentops
 from openai import OpenAI
 
-# Load environment variables from .env file
+# Set the OPENAI_API_KEY environment variable on your terminal
+# export OPENAI_API_KEY="..."
+
+# Load AGENTOPS_API_KEY environment variable from .env file
 load_dotenv()
 
-# Get API key from environment variables
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+# Get AGENTOPS_API key from environment variables
 AGENTOPS_API_KEY = os.getenv("AGENTOPS_API_KEY")
 
 # Initialize AgentOps - this is all you need for automatic instrumentation
@@ -22,31 +24,7 @@ agentops.init(AGENTOPS_API_KEY)
 client = OpenAI()
 web_search = WebSearchTool()
 
-# Define Pydantic models for structured outputs
-
-class PropertyListing(BaseModel):
-    address: Optional[str] = Field(None, description="Property address")
-    price: Optional[str] = Field(None, description="Listing price")
-    bedrooms: Optional[int] = Field(None, description="Number of bedrooms")
-    bathrooms: Optional[float] = Field(None, description="Number of bathrooms")
-    square_footage: Optional[int] = Field(None, description="Square footage of the property")
-    property_type: Optional[str] = Field(None, description="Type of property (e.g., house, condo, apartment)")
-    listing_url: Optional[str] = Field(None, description="URL to the property listing")
-
-class MortgageEstimate(BaseModel):
-    loan_amount: Optional[float] = Field(None, description="Estimated loan amount")
-    interest_rate: Optional[float] = Field(None, description="Current interest rate")
-    monthly_payment: Optional[float] = Field(None, description="Estimated monthly payment")
-    down_payment: Optional[float] = Field(None, description="Recommended down payment")
-
-class NeighborhoodInfo(BaseModel):
-    schools: Optional[List[str]] = Field(None, description="Nearby schools")
-    amenities: Optional[List[str]] = Field(None, description="Local amenities")
-    safety: Optional[str] = Field(None, description="Safety information")
-    transportation: Optional[List[str]] = Field(None, description="Transportation options")
-
 # Create specialized agents
-
 property_search_agent = Agent(
     name="property_search_agent",
     instructions="""You are a real estate property search specialist.
@@ -54,18 +32,19 @@ property_search_agent = Agent(
     When asked about properties or homes for sale, use the web_search tool to find current listings.
     Return the information in a clear, structured format.
     
-    Always include when available:
+    Always include if available:
     - Property address
     - Listing price
     - Number of bedrooms and bathrooms
     - Square footage
     - Property type
-    - URL to the listing
+    - URL to the actual listing (must be real URLs from your web search, never use example.com or placeholder URLs)
+    - URL to the actual listing, not the example URL
     
     After providing property listings, ask ONE specific follow-up question to learn more about the user's 
     preferences, budget constraints, or must-have features. This will help you provide more targeted property recommendations.
     """,
-    tools=[web_search]
+    tools=[web_search],
 )
 
 mortgage_agent = Agent(
@@ -106,8 +85,7 @@ neighborhood_agent = Agent(
     tools=[web_search]
 )
 
-# Create the main real estate agent that coordinates the specialized agents
-
+# Create the main real estate agent that coordinates the specialized agents using handoffs
 real_estate_agent = Agent(
     name="real_estate_agent",
     instructions="""You are a comprehensive real estate assistant that helps users find properties, 
@@ -140,7 +118,6 @@ real_estate_agent = Agent(
     handoffs=[property_search_agent, mortgage_agent, neighborhood_agent]
 )
 
-# Function to run the agent
 async def main():
     print("Welcome to the Real Estate Assistant!")
     print("I can help you find properties, understand mortgage options, and learn about neighborhoods.")
