@@ -1,12 +1,8 @@
-from agents import Agent, Runner, function_tool
-from agents import WebSearchTool
-import asyncio
-from typing import List, Dict, Optional
-from pydantic import BaseModel, Field
+from agents import Agent, Runner, WebSearchTool
 import os
 from dotenv import load_dotenv
 import agentops
-from openai import OpenAI
+import asyncio # we use this in the main function to run the agent
 
 # Set the OPENAI_API_KEY environment variable on your terminal
 # export OPENAI_API_KEY="..."
@@ -21,7 +17,6 @@ AGENTOPS_API_KEY = os.getenv("AGENTOPS_API_KEY")
 agentops.init(AGENTOPS_API_KEY)
 
 # Initialize the OpenAI client
-client = OpenAI()
 web_search = WebSearchTool()
 
 # Create specialized agents
