@@ -50,7 +50,7 @@ python real_estate_agent.py
 ### Optional: Web Interface
 Run the Streamlit app:
 ```bash
-streamlit run streamlit_app.py
+streamlit run real_estate_streamlit.py
 ```
 
 ## Monitoring
