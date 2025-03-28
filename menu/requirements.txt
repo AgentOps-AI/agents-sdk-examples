@@ -1,0 +1,10 @@
+# Core requirements
+python-dotenv>=0.19.0
+agentops>=0.1.0
+pytz>=2024.1
+agents-sdk  # replace with actual version when public
+
+# Optional - Web Interface
+streamlit>=1.32.0  # Optional - only needed for web interface
+
+asyncio
